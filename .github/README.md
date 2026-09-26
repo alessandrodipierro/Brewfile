@@ -1,4 +1,19 @@
 
+## Questo fork (workspace Iliad)
+
+Fork personale di [Lissy93/Brewfile](https://github.com/Lissy93/Brewfile). Il `Brewfile` originale resta sincronizzato con l'upstream; la lista pacchetti effettiva è [`Brewfile_iliad`](../Brewfile_iliad).
+
+```bash
+git clone git@github.com:alessandrodipierro/Brewfile.git ~/Home/DEV/Brewfile
+cd ~/Home/DEV/Brewfile
+./install.sh              # installa Homebrew (se manca) + tutto Brewfile_iliad
+./install.sh --cleanup    # in più rimuove ciò che non è nel file (chiede conferma)
+```
+
+Lo script è idempotente: rilanciarlo aggiorna e installa solo ciò che manca.
+
+---
+
 <h1 align="center">Lissy93/Brewfile</h1>
 <p align="center"><i>My list of *nix packages to be installed on MacOS via Homebrew, for the ultimate dev setup</i></p>
 <p align="center">
