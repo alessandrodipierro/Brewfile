@@ -1,0 +1,30 @@
+# Identità (name/email) in ~/.gitconfig.local, non versionato:
+#   git config --file ~/.gitconfig.local user.email "nome@example.com"
+[include]
+	path = ~/.gitconfig.local
+
+[init]
+	defaultBranch = production
+
+[pull]
+	rebase = true
+	ff = only
+
+[push]
+	autoSetupRemote = true
+
+[core]
+	excludesfile = ~/.gitignore_global
+	editor = zed --wait
+
+[credential]
+	helper = osxkeychain
+
+[rerere]
+	enabled = true
+
+[fetch]
+	prune = true
+
+[diff]
+	colorMoved = zebra

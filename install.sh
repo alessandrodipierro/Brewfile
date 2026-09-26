@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
-# install.sh - idempotent setup of brew packages from Brewfile_iliad
+# install.sh - idempotent setup of brew packages (Brewfile_iliad) + dotfiles (home/)
 # Usage:
 #   ./install.sh                           # uses Brewfile_iliad in same dir
 #   BREWFILE=/path/to/Brewfile ./install.sh
 #   ./install.sh --cleanup                 # also removes packages not in Brewfile (asks first)
 #   ./install.sh --cleanup --yes           # same, without confirmation
+#   ./install.sh --skip-dotfiles           # packages only
 
 set -euo pipefail
 
@@ -12,13 +13,15 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BREWFILE="${BREWFILE:-${SCRIPT_DIR}/Brewfile_iliad}"
 CLEANUP=0
 ASSUME_YES=0
+DOTFILES=1
 
 for arg in "$@"; do
   case "$arg" in
     --cleanup) CLEANUP=1 ;;
     --yes|-y) ASSUME_YES=1 ;;
+    --skip-dotfiles) DOTFILES=0 ;;
     --help|-h)
-      sed -n '2,7p' "$0"
+      sed -n '2,8p' "$0"
       exit 0
       ;;
     *)
@@ -51,7 +54,13 @@ brew update
 echo ">> Bundling from $BREWFILE..."
 brew bundle install --file="$BREWFILE"
 
-# 3. Optional cleanup (destructive: show what goes away, then confirm)
+# 3. Dotfiles (symlink home/ -> ~) + iTerm2 autosave
+if [[ $DOTFILES -eq 1 ]]; then
+  "$SCRIPT_DIR/scripts/link-dotfiles.sh"
+  "$SCRIPT_DIR/scripts/setup-iterm2-autosave.sh"
+fi
+
+# 4. Optional cleanup (destructive: show what goes away, then confirm)
 if [[ $CLEANUP -eq 1 ]]; then
   echo ">> Packages not in $BREWFILE:"
   pending=$(brew bundle cleanup --file="$BREWFILE" \

@@ -6,11 +6,22 @@ Fork personale di [Lissy93/Brewfile](https://github.com/Lissy93/Brewfile). Il `B
 ```bash
 git clone git@github.com:alessandrodipierro/Brewfile.git ~/Home/DEV/Brewfile
 cd ~/Home/DEV/Brewfile
-./install.sh              # installa Homebrew (se manca) + tutto Brewfile_iliad
-./install.sh --cleanup    # in più rimuove ciò che non è nel file (chiede conferma)
+./install.sh                  # Homebrew (se manca) + Brewfile_iliad + dotfiles
+./install.sh --cleanup        # in più rimuove ciò che non è nel file (chiede conferma)
+./install.sh --skip-dotfiles  # solo pacchetti
 ```
 
 Lo script è idempotente: rilanciarlo aggiorna e installa solo ciò che manca.
+
+| Path | Cosa |
+|---|---|
+| `Brewfile_iliad` | lista pacchetti |
+| `home/` | dotfiles, symlinkati nello stesso path sotto `~` da `scripts/link-dotfiles.sh` (i file sostituiti restano come `<file>.backup.<timestamp>`) |
+| `home/.config/cheatsheet.md` | cheatsheet del workspace, consultabile con `cheat`, `cheat <sezione>`, `cheat <termine>` |
+| `launchd/` | template LaunchAgent (salvataggio arrangement iTerm2), installato da `scripts/setup-iterm2-autosave.sh` |
+| `tests/run.sh` | test degli script |
+
+L'identità git non è versionata: va in `~/.gitconfig.local` (la migra `link-dotfiles.sh` se trova un `~/.gitconfig` esistente).
 
 ---
 
