@@ -9,6 +9,9 @@ Usage: `cheat` (tutto), `cheat <sezione>` (es. `cheat git`), `cheat <termine>` (
 | NON salvare comando in history | prefisso uno spazio: ` env TOKEN=...` |
 | Modifica .zshrc | `zed ~/.zshrc` (symlink al repo, vedi `cheat dotfiles`) |
 | Verifica PATH | `echo $PATH \| tr ':' '\n'` |
+| Accetta suggerimento grigio (dalla history) | `→` o `End` |
+| Accetta solo la prossima parola | `Alt-F` (iTerm2: `Option-→` con Option come Esc+) |
+| Colori mentre scrivi | verde = comando valido, rosso = comando inesistente |
 
 ## history
 | Cosa | Come |

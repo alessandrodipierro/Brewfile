@@ -20,6 +20,8 @@ cask_args require_sha: true
 brew 'git'            # Version control
 brew 'starship'       # Prompt universale e veloce
 brew 'mise'           # Gestore universale di runtime (node, python, ...)
+brew 'zsh-autosuggestions'     # Suggerimenti dalla history (stile fish)
+brew 'zsh-syntax-highlighting' # Colora i comandi mentre li scrivi
 
 # Basics
 brew 'aria2'          # Resuming download util (better wget)
