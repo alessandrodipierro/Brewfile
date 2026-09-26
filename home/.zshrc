@@ -47,5 +47,14 @@ compdef _cheat cheat
 [[ -e "${HOME}/.iterm2_shell_integration.zsh" ]] && \
   source "${HOME}/.iterm2_shell_integration.zsh"
 
+# -- Plugin zsh (suggerimenti da history + colori, stile fish) --
+# syntax-highlighting va caricato dopo tutti i widget (fzf incluso).
+() {
+  local share="${HOMEBREW_PREFIX:-/opt/homebrew}/share" plugin
+  for plugin in zsh-autosuggestions zsh-syntax-highlighting; do
+    [[ -r "$share/$plugin/$plugin.zsh" ]] && source "$share/$plugin/$plugin.zsh"
+  done
+}
+
 # -- Prompt (deve restare l'ultimo eval) ------------------------
 eval "$(starship init zsh)"

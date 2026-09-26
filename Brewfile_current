@@ -1,0 +1,102 @@
+#############################################################
+# Brewfile_current - Workspace macOS (Iliad)                #
+#                                                           #
+# Solo i pacchetti effettivamente in uso.                   #
+# Usage: ./install.sh  (vedi ./install.sh --help)           #
+# Storico / catalogo commentato: Brewfile_iliad, Brewfile   #
+# Docs: https://docs.brew.sh/Manpage                        #
+#############################################################
+
+cask_args require_sha: true
+
+# NB: niente `rsync` da brew. Serve quello di macOS (/usr/bin/rsync) per
+# export Xcode / upload su App Store Connect: rsync 3.x nel PATH li rompe.
+
+#############################################################
+# Command Line                                              #
+#############################################################
+
+# Essentials
+brew 'git'            # Version control
+brew 'starship'       # Prompt universale e veloce
+brew 'mise'           # Gestore universale di runtime (node, python, ...)
+brew 'zsh-autosuggestions'     # Suggerimenti dalla history (stile fish)
+brew 'zsh-syntax-highlighting' # Colora i comandi mentre li scrivi
+
+# Basics
+brew 'aria2'          # Resuming download util (better wget)
+brew 'bat'            # Output highlighting (better cat)
+brew 'duf'            # Info sui dischi montati (better df)
+brew 'dua-cli'        # Disk usage analyzer (better du)
+brew 'eza'            # Listing files with info (better ls)
+brew 'fd'             # Ricerca file rapida (better find)
+brew 'fzf'            # Fuzzy finder
+brew 'glow'           # Markdown renderer per terminale (usato da `cheat`)
+brew 'jq'             # JSON parser e query
+brew 'ripgrep'        # Ricerca nei file (better grep)
+brew 'tlrc'           # tldr client ufficiale (comando `tldr`)
+brew 'watch'          # Esegue comandi periodicamente
+brew 'zoxide'         # Navigazione che impara (better cd)
+
+# Monitoring
+brew 'ctop'           # Metriche dei container
+
+#############################################################
+# Software Development                                      #
+#############################################################
+
+# Apps
+cask 'boop'           # Text transformation tool
+cask 'bruno'          # HTTP API client (collezioni versionabili in git)
+cask 'iterm2'         # Terminal emulator
+cask 'postman'        # HTTP API testing app
+cask 'zed'            # Code editor
+
+# Langs, build e tool
+brew 'graphviz'       # Graph visualization (dot), usato da PlantUML
+brew 'pkgconf'        # pkg-config (build di dipendenze C, cgo)
+brew 'poppler'        # PDF tools (pdftoppm per pdfshrink --verify)
+brew 'uv'             # Python package manager
+brew 'xcodes'         # Installa / switcha versioni di Xcode (Xcode non è da App Store)
+
+# Containers
+cask 'orbstack'       # Docker runtime
+
+# Kubernetes
+brew 'helm'           # Kubernetes package manager
+brew 'k9s'            # TUI per cluster Kubernetes
+brew 'kubectx'        # Switch context/namespace (kubectx + kubens)
+brew 'kubernetes-cli' # kubectl
+brew 'scw'            # Scaleway CLI
+cask 'lens'           # Kubernetes IDE (GUI)
+
+# Databases (solo client: migrazioni MySQL <-> MariaDB)
+brew 'mariadb'        # client mariadb (fornisce `mysql` nel PATH), server mai avviato
+brew 'mysql-client'   # client MySQL, keg-only: vedi `cheat db`
+
+# Dev utils
+brew 'gh'             # GitHub CLI
+brew 'git-extras'     # Comandi git extra
+cask 'claude-code@latest' # Anthropic Claude AI da CLI (canale latest)
+
+# Network
+brew 'nmap'           # Port scanning
+brew 'telnet'         # Client telnet (debug porte)
+cask 'viscosity'      # OpenVPN client (VPN aziendale)
+
+# Security
+cask 'bitwarden'      # Password manager
+
+#############################################################
+# MacOS                                                     #
+#############################################################
+
+# Fonts
+cask 'font-hack-nerd-font'
+cask 'font-jetbrains-mono-nerd-font'
+
+# Utility
+cask 'keka'           # File archiver
+cask 'openinterminal' # Bottone Finder: apre la cartella nel terminale
+
+# EOF

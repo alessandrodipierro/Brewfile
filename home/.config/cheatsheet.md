@@ -9,6 +9,9 @@ Usage: `cheat` (tutto), `cheat <sezione>` (es. `cheat git`), `cheat <termine>` (
 | NON salvare comando in history | prefisso uno spazio: ` env TOKEN=...` |
 | Modifica .zshrc | `zed ~/.zshrc` (symlink al repo, vedi `cheat dotfiles`) |
 | Verifica PATH | `echo $PATH \| tr ':' '\n'` |
+| Accetta suggerimento grigio (dalla history) | `→` o `End` |
+| Accetta solo la prossima parola | `Alt-F` (iTerm2: `Option-→` con Option come Esc+) |
+| Colori mentre scrivi | verde = comando valido, rosso = comando inesistente |
 
 ## history
 | Cosa | Come |
@@ -108,6 +111,29 @@ Usage: `cheat` (tutto), `cheat <sezione>` (es. `cheat git`), `cheat <termine>` (
 | Release helm | `helm list -A` |
 | Kubeconfig cluster Scaleway | `scw k8s kubeconfig install <cluster-id>` |
 
+## xcode — xcodes
+Xcode è installato da developer.apple.com, non dall'App Store: si aggiorna con `xcodes` (login Apple ID al primo uso; scarica con aria2).
+| Cosa | Come |
+|---|---|
+| Versioni installate / attiva | `xcodes installed` |
+| Versioni disponibili | `xcodes list` |
+| Installa l'ultima | `xcodes install --latest --experimental-unxip` |
+| Installa una versione precisa | `xcodes install 26.5` |
+| Cambia Xcode attivo | `xcodes select 26.5` (chiede sudo) |
+| Runtime dei simulatori | `xcodes runtimes`, `xcodes runtimes install "iOS 26.5"` |
+| Rimuovi una versione | `xcodes uninstall 26.4` |
+| Command Line Tools | `softwareupdate --list`, poi `softwareupdate -i "<label>"` |
+
+## db — client MySQL / MariaDB
+Solo client (per migrazioni), nessun server locale. `mysql` nel PATH è quello di **MariaDB**; il client **MySQL** è keg-only.
+| Cosa | Come |
+|---|---|
+| Client MariaDB | `mariadb -h <host> -u <user> -p <db>` (o `mysql`) |
+| Dump MariaDB | `mariadb-dump -h <host> -u <user> -p <db> > dump.sql` |
+| Client MySQL | `/opt/homebrew/opt/mysql-client/bin/mysql -h <host> -u <user> -p` |
+| Dump MySQL | `/opt/homebrew/opt/mysql-client/bin/mysqldump -h <host> -u <user> -p --single-transaction <db> > dump.sql` |
+| Password senza history | prefisso spazio, oppure `-p` senza valore (la chiede) |
+
 ## iterm2
 | Cosa | Come |
 |---|---|
@@ -158,12 +184,13 @@ Safety: prima del restore, lo script salva sempre lo stato corrente in `Work.bef
 | Reinstalla tutto da file (+ dotfiles) | `~/Home/DEV/Brewfile/install.sh` |
 | Solo pacchetti, niente dotfiles | `./install.sh --skip-dotfiles` |
 | Con cleanup pacchetti rimossi dal file | `./install.sh --cleanup` (mostra la lista e chiede conferma) |
-| Cosa manca rispetto al file | `brew bundle check --verbose --file=~/Home/DEV/Brewfile/Brewfile_iliad` |
-| Cosa verrebbe rimosso (dry-run) | `brew bundle cleanup --file=~/Home/DEV/Brewfile/Brewfile_iliad` |
+| Cosa manca rispetto al file | `brew bundle check --verbose --file=~/Home/DEV/Brewfile/Brewfile_current` |
+| Cosa verrebbe rimosso (dry-run) | `brew bundle cleanup --file=~/Home/DEV/Brewfile/Brewfile_current` |
 | Update + upgrade tutto | `brew update && brew upgrade` |
 | Chi dipende da un pacchetto | `brew uses --installed <nome>` |
 | Pacchetti non più referenziati | `brew autoremove --dry-run` |
 | Formule più pesanti su disco | `du -sh "$(brew --cellar)"/* \| sort -h \| tail -20` |
+| rsync | **non** installarlo da brew: export Xcode / App Store Connect vogliono `/usr/bin/rsync` |
 
 ## dotfiles — come funziona il repo
 I file in `~/Home/DEV/Brewfile/home/` sono symlinkati nello stesso path sotto `~`. Modificare `~/.zshrc` modifica il file nel repo: poi basta un commit.
@@ -190,5 +217,5 @@ I file in `~/Home/DEV/Brewfile/home/` sono symlinkati nello stesso path sotto `~
 | `~/.local/bin/iterm2-save-arrangement.sh` | wrapper bash (backup + run python) |
 | `~/.local/bin/iterm2-restore-arrangement.sh` | restore arrangement da backup |
 | `~/Library/LaunchAgents/com.padipierro.iterm2-save-arrangement.plist` | scheduler ogni 5 min (generato dal template in `launchd/`) |
-| `~/Home/DEV/Brewfile/Brewfile_iliad` | lista pacchetti |
+| `~/Home/DEV/Brewfile/Brewfile_current` | lista pacchetti in uso (`Brewfile_iliad` = storico) |
 | `~/Home/DEV/Brewfile/install.sh` | applica Brewfile + dotfiles |
