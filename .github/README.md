@@ -1,12 +1,12 @@
 
 ## Questo fork (workspace Iliad)
 
-Fork personale di [Lissy93/Brewfile](https://github.com/Lissy93/Brewfile). Il `Brewfile` originale resta sincronizzato con l'upstream; la lista pacchetti effettiva è [`Brewfile_iliad`](../Brewfile_iliad).
+Fork personale di [Lissy93/Brewfile](https://github.com/Lissy93/Brewfile). Il `Brewfile` originale resta sincronizzato con l'upstream; la lista pacchetti in uso è [`Brewfile_current`](../Brewfile_current).
 
 ```bash
 git clone git@github.com:alessandrodipierro/Brewfile.git ~/Home/DEV/Brewfile
 cd ~/Home/DEV/Brewfile
-./install.sh                  # Homebrew (se manca) + Brewfile_iliad + dotfiles
+./install.sh                  # Homebrew (se manca) + Brewfile_current + dotfiles
 ./install.sh --cleanup        # in più rimuove ciò che non è nel file (chiede conferma)
 ./install.sh --skip-dotfiles  # solo pacchetti
 ```
@@ -15,7 +15,8 @@ Lo script è idempotente: rilanciarlo aggiorna e installa solo ciò che manca.
 
 | Path | Cosa |
 |---|---|
-| `Brewfile_iliad` | lista pacchetti |
+| `Brewfile_current` | lista pacchetti in uso (solo righe attive) |
+| `Brewfile_iliad` | versione precedente, con il catalogo commentato dell'upstream (storico) |
 | `home/` | dotfiles, symlinkati nello stesso path sotto `~` da `scripts/link-dotfiles.sh` (i file sostituiti restano come `<file>.backup.<timestamp>`) |
 | `home/.config/cheatsheet.md` | cheatsheet del workspace, consultabile con `cheat`, `cheat <sezione>`, `cheat <termine>` |
 | `launchd/` | template LaunchAgent (salvataggio arrangement iTerm2), installato da `scripts/setup-iterm2-autosave.sh` |

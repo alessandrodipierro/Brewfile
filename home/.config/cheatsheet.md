@@ -158,12 +158,13 @@ Safety: prima del restore, lo script salva sempre lo stato corrente in `Work.bef
 | Reinstalla tutto da file (+ dotfiles) | `~/Home/DEV/Brewfile/install.sh` |
 | Solo pacchetti, niente dotfiles | `./install.sh --skip-dotfiles` |
 | Con cleanup pacchetti rimossi dal file | `./install.sh --cleanup` (mostra la lista e chiede conferma) |
-| Cosa manca rispetto al file | `brew bundle check --verbose --file=~/Home/DEV/Brewfile/Brewfile_iliad` |
-| Cosa verrebbe rimosso (dry-run) | `brew bundle cleanup --file=~/Home/DEV/Brewfile/Brewfile_iliad` |
+| Cosa manca rispetto al file | `brew bundle check --verbose --file=~/Home/DEV/Brewfile/Brewfile_current` |
+| Cosa verrebbe rimosso (dry-run) | `brew bundle cleanup --file=~/Home/DEV/Brewfile/Brewfile_current` |
 | Update + upgrade tutto | `brew update && brew upgrade` |
 | Chi dipende da un pacchetto | `brew uses --installed <nome>` |
 | Pacchetti non più referenziati | `brew autoremove --dry-run` |
 | Formule più pesanti su disco | `du -sh "$(brew --cellar)"/* \| sort -h \| tail -20` |
+| rsync | **non** installarlo da brew: export Xcode / App Store Connect vogliono `/usr/bin/rsync` |
 
 ## dotfiles — come funziona il repo
 I file in `~/Home/DEV/Brewfile/home/` sono symlinkati nello stesso path sotto `~`. Modificare `~/.zshrc` modifica il file nel repo: poi basta un commit.
@@ -190,5 +191,5 @@ I file in `~/Home/DEV/Brewfile/home/` sono symlinkati nello stesso path sotto `~
 | `~/.local/bin/iterm2-save-arrangement.sh` | wrapper bash (backup + run python) |
 | `~/.local/bin/iterm2-restore-arrangement.sh` | restore arrangement da backup |
 | `~/Library/LaunchAgents/com.padipierro.iterm2-save-arrangement.plist` | scheduler ogni 5 min (generato dal template in `launchd/`) |
-| `~/Home/DEV/Brewfile/Brewfile_iliad` | lista pacchetti |
+| `~/Home/DEV/Brewfile/Brewfile_current` | lista pacchetti in uso (`Brewfile_iliad` = storico) |
 | `~/Home/DEV/Brewfile/install.sh` | applica Brewfile + dotfiles |

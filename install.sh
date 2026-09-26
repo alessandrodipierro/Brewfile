@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# install.sh - idempotent setup of brew packages (Brewfile_iliad) + dotfiles (home/)
+# install.sh - idempotent setup of brew packages (Brewfile_current) + dotfiles (home/)
 # Usage:
-#   ./install.sh                           # uses Brewfile_iliad in same dir
+#   ./install.sh                           # uses Brewfile_current in same dir
 #   BREWFILE=/path/to/Brewfile ./install.sh
 #   ./install.sh --cleanup                 # also removes packages not in Brewfile (asks first)
 #   ./install.sh --cleanup --yes           # same, without confirmation
@@ -10,7 +10,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BREWFILE="${BREWFILE:-${SCRIPT_DIR}/Brewfile_iliad}"
+BREWFILE="${BREWFILE:-${SCRIPT_DIR}/Brewfile_current}"
 CLEANUP=0
 ASSUME_YES=0
 DOTFILES=1
