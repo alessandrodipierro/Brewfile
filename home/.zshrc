@@ -12,13 +12,18 @@ setopt HIST_IGNORE_DUPS HIST_IGNORE_ALL_DUPS HIST_FIND_NO_DUPS HIST_SAVE_NO_DUPS
 setopt HIST_REDUCE_BLANKS HIST_VERIFY HIST_IGNORE_SPACE
 
 # -- Completion (sicuro + cached) -------------------------------
+# Rigenera il dump solo se più vecchio di 24h. Il qualifier (#q...) dentro
+# [[ ]] richiede EXTENDED_GLOB: senza, la condizione è sempre vera.
 FPATH="$HOME/.docker/completions:$FPATH"
 autoload -Uz compinit
-if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
-  compinit -i
-else
-  compinit -C -i
-fi
+() {
+  setopt local_options extended_glob
+  if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+    compinit -i
+  else
+    compinit -C -i
+  fi
+}
 
 # -- Runtime version manager ------------------------------------
 eval "$(mise activate zsh)"
