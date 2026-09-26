@@ -63,8 +63,9 @@ fi
 # 4. Optional cleanup (destructive: show what goes away, then confirm)
 if [[ $CLEANUP -eq 1 ]]; then
   echo ">> Packages not in $BREWFILE:"
-  pending=$(brew bundle cleanup --file="$BREWFILE" \
-    | awk '/^Would uninstall/ { print; p=1; next } /^(Would|==>|Run )/ { p=0 } p')
+  # The dry-run exits 1 when there is something to remove: not an error here
+  preview=$(brew bundle cleanup --file="$BREWFILE" || true)
+  pending=$(awk '/^Would uninstall/ { print; p=1; next } /^(Would|==>|Run )/ { p=0 } p' <<<"$preview")
   if [[ -n "$pending" ]]; then
     echo "$pending"
     if [[ $ASSUME_YES -eq 0 ]]; then
