@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+# cheat - consulta il cheatsheet del workspace
+# Usage:
+#   cheat              # tutto il cheatsheet
+#   cheat <sezione>    # una sezione (chiave = prima parola dopo "## ")
+#   cheat <termine>    # se nessuna sezione ha quel nome: righe che lo contengono
+#   cheat -l|--list    # elenca le chiavi di sezione
+# Env: CHEATSHEET=<file> (default ~/.config/cheatsheet.md)
+
+set -euo pipefail
+
+SHEET="${CHEATSHEET:-$HOME/.config/cheatsheet.md}"
+
+list_sections() {
+  awk '/^## / { print $2 }' "$SHEET"
+}
+
+show_section() {
+  awk -v want="$1" '
+    BEGIN { want = tolower(want) }
+    /^## / { p = (tolower($2) == want) }
+    p
+  ' "$SHEET"
+}
+
+# Righe che contengono il termine, raggruppate sotto il titolo di sezione.
+# Per le righe di tabella ripete intestazione + separatore, così il markdown
+# resta una tabella valida.
+search() {
+  awk -v want="$1" '
+    BEGIN { want = tolower(want) }
+    /^## / { title = $0; head = ""; sep = ""; shown_title = 0; shown_head = 0; next }
+    title == "" { next }
+    /^\|/ && head == "" { head = $0; next }
+    /^\|[-| :]+\|$/ && sep == "" { sep = $0; next }
+    index(tolower($0), want) {
+      if (!shown_title) { if (printed) print ""; print title; shown_title = 1; printed = 1 }
+      if (/^\|/ && !shown_head) { print head; print sep; shown_head = 1 }
+      print
+    }
+  ' "$SHEET"
+}
+
+# Markdown renderizzato solo su terminale; in pipe (`cheat git | rg push`) testo puro.
+render() {
+  if [[ ! -t 1 ]]; then
+    cat
+  elif command -v glow >/dev/null 2>&1; then
+    glow -p -
+  elif command -v bat >/dev/null 2>&1; then
+    bat --paging=auto --style=plain --language=md
+  else
+    less -R
+  fi
+}
+
+main() {
+  [[ -f "$SHEET" ]] || { echo "cheat: cheatsheet non trovato: $SHEET" >&2; exit 1; }
+
+  case "${1:-}" in
+    -h|--help) sed -n '2,8p' "$0"; exit 0 ;;
+    -l|--list) list_sections; exit 0 ;;
+    "") render < "$SHEET"; exit 0 ;;
+  esac
+
+  local query="$*" out
+  out=$(show_section "$query")
+  [[ -n "$out" ]] || out=$(search "$query")
+  if [[ -z "$out" ]]; then
+    echo "cheat: nessuna sezione o riga per '$query' (vedi cheat --list)" >&2
+    exit 1
+  fi
+  printf '%s\n' "$out" | render
+}
+
+main "$@"
