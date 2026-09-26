@@ -1,18 +1,18 @@
 #############################################################
-# ~/.Brewfile - Software Installs for MacOS                 #
+# Brewfile_iliad - Workspace macOS (Iliad)                  #
 #                                                           #
-# List of packages to be installed / updated via Homebrew   #
-# Apps are sorted by category, and arranged alphabetically  #
-# Be sure to delete / comment out anything you do not need  #
-# Usage, run: $ brew bundle --global --file $HOME/.Brewfile #
-# Source GH repository: https://github.com/adp/Brewfile     #
-# See brew docs for more info: https://docs.brew.sh/Manpage #
+# Pacchetti installati / aggiornati via Homebrew.           #
+# Usage: ./install.sh  (vedi ./install.sh --help)           #
+# Repo: https://github.com/alessandrodipierro/Brewfile      #
+# Docs: https://docs.brew.sh/Manpage                        #
 #                                                           #
+# Basato su Lissy93/Brewfile                                #
 # License: MIT © Alicia Sykes 2022 <https://aliciasykes.com>#
 #############################################################
 
 # Options
-cask_args appdir: '~/Applications', require_sha: true
+# appdir di default (/Applications), coerente con le app già installate
+cask_args require_sha: true
 
 # Taps (homebrew/core, /cask, /bundle, /services sono auto-gestiti in Homebrew 4+)
 #tap 'blacktop/tap'
@@ -27,7 +27,7 @@ cask_args appdir: '~/Applications', require_sha: true
 #############################################################
 
 # CLI Essentials
-brew 'git'          # Version controll
+brew 'git'          # Version control
 #brew 'neovim'       # Text editor
 #brew 'ranger'       # Directory browser
 
@@ -43,7 +43,7 @@ brew 'duf'          # Get info on mounted disks (better df)
 brew 'eza'          # Listing files with info (better ls)
 #brew 'exiftool'     # Read, write and modify exif data
 brew 'fzf'          # Fuzzy file finder and filtering
-brew 'fd'          # Ricerca file rapida (alternativa a 'find')
+brew 'fd'           # Ricerca file rapida (alternativa a 'find')
 #brew 'hyperfine'    # Benchmarking for arbitrary commands
 #brew 'jdupes'       # Duplicate file finder
 #brew 'just'         # Powerful command runner (better make)
@@ -52,9 +52,9 @@ brew 'jq'           # JSON parser, output and query files
 brew 'ripgrep'      # Searching within files (better grep)
 brew 'rsync'        # Fast incremental file transfer
 #brew 'sd'           # RegEx find and replace (better sed)
-brew 'tldr'         # Community-maintained docs (better man)
+brew 'tlrc'         # tldr client ufficiale (comando `tldr`; formula 'tldr' disabilitata)
 #brew 'tokei'        # Count lines of code (better cloc)
-brew 'watch'        # Run commands periorically
+brew 'watch'        # Run commands periodically
 brew 'zoxide'       # Auto-learning navigation (better cd)
 brew 'starship'     # Prompt universale e veloce
 
@@ -114,11 +114,12 @@ cask 'boop'           # Text transformation tool
 #brew 'gradle'         # Build automation for Java
 cask 'iterm2'         # Better terminal emulator
 #cask 'warp'         # Better terminal emulator
-cask 'ghostty'         # Better terminal emulator
+cask 'ghostty'        # Better terminal emulator
 cask 'postman'        # HTTP API testing app
+cask 'bruno'          # HTTP API client (collezioni versionabili in git)
 #cask 'sourcetree'     # Git visual client
 #cask 'visual-studio-code' # Code editor
-cask 'zed' # Code etitor
+cask 'zed'            # Code editor
 
 # Development Langs, Compilers, Package Managers and SDKs
 #brew 'gcc'            # GNU C++ compilers
@@ -144,9 +145,10 @@ cask 'orbstack'       # Docker alternative
 brew 'helm'           # Kubernetes package manager
 brew 'k9s'            # TUI for Kubernetes clusters
 brew 'kubectx'        # Switch kubeconfig contexts (kubectx + kubens)
-brew 'kubernetes-cli'
-brew 'scw'
-cask 'lens'
+brew 'kubernetes-cli' # kubectl
+brew 'scw'            # Scaleway CLI
+cask 'lens'           # Kubernetes IDE (GUI)
+
 # Databases
 brew 'mariadb'        # MariaDB server + client (fork MySQL)
 brew 'mysql-client'   # Only MySQL client (for remote connections)
@@ -159,7 +161,7 @@ brew 'git-extras'     # Extra git commands for common tasks
 #brew 'tig'            # Text-mode interface for git
 #brew 'ttygif'         # Generate GIF from terminal commands + output
 #brew 'watchman'       # Watch for changes and reload dev server
-cask 'claude-code'    # Anthropic Claude AI from CLI
+cask 'claude-code@latest' # Anthropic Claude AI from CLI (canale latest)
 brew 'gemini-cli'     # Google Gemini AI from CLI
 brew 'pkg-config-wrapper' # Helper per pkg-config (build deps C)
 brew 'poppler'        # PDF rendering library (deps di vari tool)
@@ -168,6 +170,7 @@ brew 'poppler'        # PDF rendering library (deps di vari tool)
 #brew 'bettercap'      # Network, scanning and monitoring
 brew 'nmap'           # Port scanning
 cask 'tunnelblick'    # OpenVPN client (VPN aziendale)
+cask 'viscosity'      # OpenVPN client (VPN aziendale)
 brew 'telnet'         # Legacy network protocol client (debugging porte)
 #brew 'wrk'            # HTTP benchmarking
 #cask 'burp-suite'     # Web security testing
@@ -183,6 +186,7 @@ brew 'telnet'         # Legacy network protocol client (debugging porte)
 #brew 'rkhunter'       # Search / detect potential root kits
 #cask 'veracrypt'      # File and volume encryption
 cask 'bitwarden'      # Password manager
+
 #############################################################
 # Desktop Applications                                      #
 #############################################################
