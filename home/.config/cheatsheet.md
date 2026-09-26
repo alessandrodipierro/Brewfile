@@ -111,6 +111,29 @@ Usage: `cheat` (tutto), `cheat <sezione>` (es. `cheat git`), `cheat <termine>` (
 | Release helm | `helm list -A` |
 | Kubeconfig cluster Scaleway | `scw k8s kubeconfig install <cluster-id>` |
 
+## xcode — xcodes
+Xcode è installato da developer.apple.com, non dall'App Store: si aggiorna con `xcodes` (login Apple ID al primo uso; scarica con aria2).
+| Cosa | Come |
+|---|---|
+| Versioni installate / attiva | `xcodes installed` |
+| Versioni disponibili | `xcodes list` |
+| Installa l'ultima | `xcodes install --latest --experimental-unxip` |
+| Installa una versione precisa | `xcodes install 26.5` |
+| Cambia Xcode attivo | `xcodes select 26.5` (chiede sudo) |
+| Runtime dei simulatori | `xcodes runtimes`, `xcodes runtimes install "iOS 26.5"` |
+| Rimuovi una versione | `xcodes uninstall 26.4` |
+| Command Line Tools | `softwareupdate --list`, poi `softwareupdate -i "<label>"` |
+
+## db — client MySQL / MariaDB
+Solo client (per migrazioni), nessun server locale. `mysql` nel PATH è quello di **MariaDB**; il client **MySQL** è keg-only.
+| Cosa | Come |
+|---|---|
+| Client MariaDB | `mariadb -h <host> -u <user> -p <db>` (o `mysql`) |
+| Dump MariaDB | `mariadb-dump -h <host> -u <user> -p <db> > dump.sql` |
+| Client MySQL | `/opt/homebrew/opt/mysql-client/bin/mysql -h <host> -u <user> -p` |
+| Dump MySQL | `/opt/homebrew/opt/mysql-client/bin/mysqldump -h <host> -u <user> -p --single-transaction <db> > dump.sql` |
+| Password senza history | prefisso spazio, oppure `-p` senza valore (la chiede) |
+
 ## iterm2
 | Cosa | Come |
 |---|---|

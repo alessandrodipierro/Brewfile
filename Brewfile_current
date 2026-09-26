@@ -57,6 +57,7 @@ brew 'graphviz'       # Graph visualization (dot), usato da PlantUML
 brew 'pkgconf'        # pkg-config (build di dipendenze C, cgo)
 brew 'poppler'        # PDF tools (pdftoppm per pdfshrink --verify)
 brew 'uv'             # Python package manager
+brew 'xcodes'         # Installa / switcha versioni di Xcode (Xcode non è da App Store)
 
 # Containers
 cask 'orbstack'       # Docker runtime
